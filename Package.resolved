@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "swift-utilities",
+        "repositoryURL": "https://github.com/gestrich/swift-utilities.git",
+        "state": {
+          "branch": "master",
+          "revision": "fde040d56e30cf53edb4386aa5836bdb3ff4c9a7",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

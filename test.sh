@@ -1,0 +1,40 @@
+#/bin/bash
+
+client_id=XB9WKlpkNZZW8Z4pXSJVOn9fdqLrzcID
+client_secret=Z5U92b5HuBeAbMnC
+code=bcabd8df3fe63399e5260f6517b6af29
+token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IlR3eThiT1B4MGRvU1JoRk9WbGRnQlh0SkpiVSIsImtpZCI6IlR3eThiT1B4MGRvU1JoRk9WbGRnQlh0SkpiVSJ9.eyJpc3MiOiJodHRwczovL3VhbTEuZGV4Y29tLmNvbS9pZGVudGl0eSIsImF1ZCI6Imh0dHBzOi8vdWFtMS5kZXhjb20uY29tL2lkZW50aXR5L3Jlc291cmNlcyIsImV4cCI6MTYwNDI0NTM2NCwibmJmIjoxNjA0MjM4MTY0LCJjbGllbnRfaWQiOiJYQjlXS2xwa05aWlc4WjRwWFNKVk9uOWZkcUxyemNJRCIsInNjb3BlIjpbIm9mZmxpbmVfYWNjZXNzIiwiZWd2IiwiY2FsaWJyYXRpb24iLCJkZXZpY2UiLCJzdGF0aXN0aWNzIiwiZXZlbnQiXSwic3ViIjoiM2I3MDZmYTItNjMyYy00OWUyLWIxYjMtMzlkNDhjNWU0NGJlIiwiYXV0aF90aW1lIjoxNjA0MjM4MTM0LCJpZHAiOiJpZHNydiIsImNvdW50cnlfY29kZSI6IlVTIiwianRpIjoiMjVhZjA4ZTZjODNlY2JkMTBkZTFhODk5OTJmYTQ3MGQiLCJhbXIiOlsicGFzc3dvcmQiXX0.NIy0yFH34O0iUx-0Z-flZ8c84St3K-VqgWyyGARTmhtyNeLjF7q3Tg6FCIiGQ19oHk3CCUJ3YgpJ7tqzQxwu6Ix6U4Dyig3ebm-3B4bfFA3uvwHS7C5c12pM65uiBtHHoH8RFlx_N802R5iLO7PRoZH1QwRMYHFhZMwb8F9Lf9dFCeybBFB-V357b7GOPMri5Mq--TvNFMK6GWvUihB8-jND2E3ofLKOSTGrzp1PG_UeyG-jKNOfpPAQdJqd5hjSMRo9mbMq_BONtBR6EFfCzpWXAS2mYRNcWm1VGW2M0TSwhSYxWiqb--jaTz6LYZFY5UYUQUXzh_1fUUJZUP1Sng"
+
+#{"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IlR3eThiT1B4MGRvU1JoRk9WbGRnQlh0SkpiVSIsImtpZCI6IlR3eThiT1B4MGRvU1JoRk9WbGRnQlh0SkpiVSJ9.eyJpc3MiOiJodHRwczovL3VhbTEuZGV4Y29tLmNvbS9pZGVudGl0eSIsImF1ZCI6Imh0dHBzOi8vdWFtMS5kZXhjb20uY29tL2lkZW50aXR5L3Jlc291cmNlcyIsImV4cCI6MTYwNDI0NTM2NCwibmJmIjoxNjA0MjM4MTY0LCJjbGllbnRfaWQiOiJYQjlXS2xwa05aWlc4WjRwWFNKVk9uOWZkcUxyemNJRCIsInNjb3BlIjpbIm9mZmxpbmVfYWNjZXNzIiwiZWd2IiwiY2FsaWJyYXRpb24iLCJkZXZpY2UiLCJzdGF0aXN0aWNzIiwiZXZlbnQiXSwic3ViIjoiM2I3MDZmYTItNjMyYy00OWUyLWIxYjMtMzlkNDhjNWU0NGJlIiwiYXV0aF90aW1lIjoxNjA0MjM4MTM0LCJpZHAiOiJpZHNydiIsImNvdW50cnlfY29kZSI6IlVTIiwianRpIjoiMjVhZjA4ZTZjODNlY2JkMTBkZTFhODk5OTJmYTQ3MGQiLCJhbXIiOlsicGFzc3dvcmQiXX0.NIy0yFH34O0iUx-0Z-flZ8c84St3K-VqgWyyGARTmhtyNeLjF7q3Tg6FCIiGQ19oHk3CCUJ3YgpJ7tqzQxwu6Ix6U4Dyig3ebm-3B4bfFA3uvwHS7C5c12pM65uiBtHHoH8RFlx_N802R5iLO7PRoZH1QwRMYHFhZMwb8F9Lf9dFCeybBFB-V357b7GOPMri5Mq--TvNFMK6GWvUihB8-jND2E3ofLKOSTGrzp1PG_UeyG-jKNOfpPAQdJqd5hjSMRo9mbMq_BONtBR6EFfCzpWXAS2mYRNcWm1VGW2M0TSwhSYxWiqb--jaTz6LYZFY5UYUQUXzh_1fUUJZUP1Sng","expires_in":7200,"token_type":"Bearer","refresh_token":"fa25a3287d0053ff9f075fbccae48927"}% 
+
+redirect_url="http://localhost:8080/authorization-code/callback"
+
+
+function authorizeUser() {
+  open "https://api.dexcom.com/v2/oauth2/login?client_id=$client_id&redirect_uri=$redirect_url&response_type=code&scope=offline_access"
+}
+
+function testRequest(){
+  curl -X GET \
+  "https://api.dexcom.com/v2/users/self/egvs?startDate=2020-11-01T00:00:00&endDate=2020-12-16T15:45:00" \
+  -H "authorization: Bearer $token"
+}
+
+function getToken() {
+  #Supports optional arg &state={your_state_value} to prevent CSRF
+  #localhost:8080/authorization-code/callback?code=ebd365d6ccb5e70681a8ec7f211cc689”
+  curl -X POST \
+    "https://api.dexcom.com/v2/oauth2/token" \
+    -H 'cache-control: no-cache' \
+    -H 'content-type: application/x-www-form-urlencoded' \
+    -H "Accept: application/json" \
+    -d "client_secret=$client_secret&client_id=$client_id&code=$code&grant_type=authorization_code&redirect_uri=$redirect_url"
+}
+
+function run() {
+  /Users/bill/Library/Developer/Xcode/DerivedData/dexcom-ebwomjlvqbefwveusgjkpkufrtxg/Build/Products/Debug/dexcom
+}
+
+#testRequest
+#authorizeUser
+run

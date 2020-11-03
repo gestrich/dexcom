@@ -1,0 +1,23 @@
+//
+//  Token.swift
+//  
+//
+//  Created by Bill Gestrich on 11/1/20.
+//
+
+import Foundation
+
+struct Token: Codable {
+    let access_token: String
+    let refresh_token: String
+    let expires_in: Int
+    let token_type: String
+}
+
+
+/*
+ "access_token" = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IlR3eThiT1B4MGRvU1JoRk9WbGRnQlh0SkpiVSIsImtpZCI6IlR3eThiT1B4MGRvU1JoRk9WbGRnQlh0SkpiVSJ9.eyJpc3MiOiJodHRwczovL3VhbTEuZGV4Y29tLmNvbS9pZGVudGl0eSIsImF1ZCI6Imh0dHBzOi8vdWFtMS5kZXhjb20uY29tL2lkZW50aXR5L3Jlc291cmNlcyIsImV4cCI6MTYwNDI1MjU5MiwibmJmIjoxNjA0MjQ1MzkyLCJjbGllbnRfaWQiOiJYQjlXS2xwa05aWlc4WjRwWFNKVk9uOWZkcUxyemNJRCIsInNjb3BlIjpbIm9mZmxpbmVfYWNjZXNzIiwiZWd2IiwiY2FsaWJyYXRpb24iLCJkZXZpY2UiLCJzdGF0aXN0aWNzIiwiZXZlbnQiXSwic3ViIjoiM2I3MDZmYTItNjMyYy00OWUyLWIxYjMtMzlkNDhjNWU0NGJlIiwiYXV0aF90aW1lIjoxNjA0MjQ1MzU2LCJpZHAiOiJpZHNydiIsImNvdW50cnlfY29kZSI6IlVTIiwianRpIjoiYTFjYWE5ZWU0NmQ2YWMzZjk1YjIyZDhjYmRiMjNlMzEiLCJhbXIiOlsicGFzc3dvcmQiXX0.HDweeECc_cND21SdQRMtbVhw3Fhdj3RZA8vsVc_qR1cflr9OzxTV6PtaHMmryz7r3MUi5flvxJ-D2nXrKogkTdY4gR0RIryE_M2kosIUbe2z_cxClnHXIW2u5D368PBJwcaGw1-obxlrnklgJrciRLiX6r8FFFdFhw25odEHUVXeg5IZSjqZgz6kbxy14hG9fNRLe8jKaK4i2jRyC-SVIo9muacxC4DLYrQLu3-cbsBdWrkzltdsSKJlpvQPOV_aXaEVzwypXFTTKYIWfjb5mH6x70P8EBYri-3OAAxrmZcqf-Sf7l_V5ZxtBwlRfB4ndl1VBZCl0niP5SVozbimFA";
+ "expires_in" = 7200;
+ "refresh_token" = 6aa4b93f99d844dcad3b77ff2d6a4514;
+ "token_type" = Bearer;
+ */
