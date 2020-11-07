@@ -23,11 +23,9 @@ guard let credentials = localCredentials() else {
     fatalError()
 }
 
-let dexcomRealTime = DexcomRealTimeAPI(baseURL: "https://share2.dexcom.com/ShareWebServices/Services", username: credentials.username, password: credentials.password, slackURL: credentials.slackURL)
-dexcomRealTime.checkSugar()
-
 if realTime {
-
+    let dexcomRealTime = DexcomRealTimeAPI(baseURL: "https://share2.dexcom.com/ShareWebServices/Services", username: credentials.username, password: credentials.password, slackURL: credentials.slackURL)
+    dexcomRealTime.checkSugar()
 } else {
     let dexcom = DexcomAPI.init(baseURL: "https://api.dexcom.com/v2/users/self/", slackURL: credentials.slackURL)
     print(dexcom.authorizationURL())

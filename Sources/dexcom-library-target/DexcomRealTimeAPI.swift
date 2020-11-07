@@ -219,6 +219,20 @@ public class DexcomRealTimeAPI: RestClient {
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         return token
     }
+    
+    /*
+     Turn on monitoring session
+     
+     curl \
+            -H "Content-Length: 0" -H "Accept: application/json" \
+            -H "User-Agent: Dexcom Share/3.0.2.11 CFNetwork/672.0.2 Darwin/14.0.0" \
+            -X POST "https://share1.dexcom.com/ShareWebServices/Services/Publisher/StartRemoteMonitoringSession?sessionId=<session-id>"   | jq
+     */
+    
+    /*
+     Check session monitoring session status
+     curl       -H "Content-Length: 0" -H "Accept: application/json"       -H "User-Agent: Dexcom Share/3.0.2.11 CFNetwork/672.0.2 Darwin/14.0.0"       -X POST "https://share1.dexcom.com/ShareWebServices/Services/Publisher/IsRemoteMonitoringSessionActive?sessionId=<session-id>"   | jq
+     */
  
     
     public func synchronousData(relativeURL: String, completionBlock:@escaping ((Data) -> Void), errorBlock:(@escaping (RestClientError) -> Void)){
