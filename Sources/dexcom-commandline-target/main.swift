@@ -25,8 +25,19 @@ guard let credentials = localCredentials() else {
 
 if realTime {
     let dexcomAPI = DexcomAPIV0(username: credentials.username, password: credentials.password)
-    let egv = try dexcomAPI.checkSugar()
-    print(egv.debugDescription)
+    let egvResult = dexcomAPI.checkSugar()
+    
+    switch egvResult {
+    case .success(let egvs):
+        print(egvs.debugDescription)
+    case .failure(let error):
+        switch error {
+        case .failedConnection(let msg):
+            print(msg)
+        case .failedLogin(let msg):
+            print(msg)
+        }
+    }
 
 } else {
     let dexcom = DexcomAPIV2.init(baseURL: "https://api.dexcom.com/v2/users/self/")

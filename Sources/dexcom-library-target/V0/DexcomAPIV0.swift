@@ -29,17 +29,17 @@ public class DexcomAPIV0: RestClient {
         self.headers =  DexcomAPIV0.headers()
     }
     
-    public func checkSugar() throws -> EGV {
+    public func checkSugar() -> Result<EGV, SugarMonitorError> {
         
         guard let sessionId = getToken() else {
-            throw SugarMonitorError.failedLogin(msg: "Could not login as \(username).")
+            return Result.failure(SugarMonitorError.failedLogin(msg: "Could not login as \(username)."))
         }
         
         guard let egv = getEGV(sessionId: sessionId) else {
-            throw SugarMonitorError.failedConnection(msg: "Could not connect to Dexcom. Is it connected to the internet?")
+            return Result.failure(SugarMonitorError.failedConnection(msg: "Could not connect to Dexcom. Is it connected to the internet?"))
         }
         
-        return egv
+        return Result.success(egv)
     }
     
     func getEGV(sessionId: String) -> EGV? {
