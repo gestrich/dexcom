@@ -24,8 +24,9 @@ guard let credentials = localCredentials() else {
 }
 
 if realTime {
-    let sugarMonitor = SugarMonitor(username: credentials.username, password: credentials.password, slackURL: credentials.slackURL)
-    sugarMonitor.checkSugar()
+    let dexcomAPI = DexcomAPIV0(username: credentials.username, password: credentials.password)
+    let egv = try dexcomAPI.checkSugar()
+    print(egv.debugDescription)
 
 } else {
     let dexcom = DexcomAPIV2.init(baseURL: "https://api.dexcom.com/v2/users/self/")

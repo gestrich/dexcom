@@ -21,12 +21,25 @@ public class DexcomAPIV0: RestClient {
     let password: String
     let applicationId = "d8665ade-9673-4e27-9ff6-92db4ce13d13"
     static let baseURLString = "https://share2.dexcom.com/ShareWebServices/Services"
-    
+        
     public init(username: String, password: String) {
         self.username = username
         self.password = password
         super.init(baseURL: DexcomAPIV0.baseURLString)
         self.headers =  DexcomAPIV0.headers()
+    }
+    
+    public func checkSugar() throws -> EGV {
+        
+        guard let sessionId = getToken() else {
+            throw SugarMonitorError.failedLogin(msg: "Could not login as \(username).")
+        }
+        
+        guard let egv = getEGV(sessionId: sessionId) else {
+            throw SugarMonitorError.failedConnection(msg: "Could not connect to Dexcom. Is it connected to the internet?")
+        }
+        
+        return egv
     }
     
     func getEGV(sessionId: String) -> EGV? {
@@ -142,6 +155,11 @@ public class DexcomAPIV0: RestClient {
     }
 
     
+}
+
+public enum SugarMonitorError: Error {
+    case failedLogin(msg: String)
+    case failedConnection(msg: String)
 }
 
 

@@ -10,5 +10,4 @@ import Foundation
 public struct DexcomCredentials: Codable {
     public let username: String
     public let password: String
-    public let slackURL: URL
 }
