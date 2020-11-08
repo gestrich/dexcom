@@ -17,7 +17,7 @@ func localCredentials() -> DexcomCredentials? {
 }
 
 
-let realTime = false
+let realTime = true
 
 guard let credentials = localCredentials() else {
     fatalError()

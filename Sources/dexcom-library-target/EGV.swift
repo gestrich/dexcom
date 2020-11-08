@@ -13,23 +13,21 @@ struct EGV: Codable {
     let displayTime: Date
     let realtimeValue: Int?
     let smoothedValue: Int?
-    let trend: Int
     let trendRate: Float?
+    let trendDescription: String
+    
+    var debugDescription: String {
+        return "\(displayTime): \(value), (\(trendDescription) \(trendRate ?? 0.0))"
+    }
+    
+    func simpleDescription() ->  String {
+        return "\(value) (\(trendDescription) \(trendRate ?? 0.0))"
+    }
     
     func displayDateDescription() -> String {
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatterPrint.dateFormat = "h:mm a"
         return dateFormatterPrint.string(from: displayTime)
-    }
-    
-    func presentableTrend() -> String {
-        if trend < 4 {
-            return "Rising"
-        } else if trend > 4 {
-            return "Falling"
-        } else {
-            return "Steady"
-        }
     }
 }

@@ -30,12 +30,29 @@ public struct EGVJSONV0: Codable {
 
 
 extension EGVJSONV0 {
+    
     func toEGV() -> EGV? {
         guard let displayTime = dateStringToDate(DT),
               let systemTime = dateStringToDate(ST)  else {
             return nil
         }
         
-        return EGV(value: Value, systemTime: systemTime, displayTime: displayTime, realtimeValue: nil, smoothedValue: nil, trend: Trend, trendRate: nil)
+        /*
+         TODO: Should convert Trend to scale from -8..8
+         Need to understand correspondance translation
+         though after printing the values to Slack.
+         */
+        
+        return EGV(value: Value, systemTime: systemTime, displayTime: displayTime, realtimeValue: nil, smoothedValue: nil, trendRate: Float(Trend), trendDescription: presentableTrend())
+    }
+    
+    func presentableTrend() -> String {
+        if Trend < 4 {
+            return "Rising"
+        } else if Trend > 4 {
+            return "Falling"
+        } else {
+            return "Steady"
+        }
     }
 }

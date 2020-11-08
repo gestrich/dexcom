@@ -11,6 +11,10 @@ import FoundationNetworking
 #endif
 import swift_utilities
 
+/*
+ Unofficial API Docs: https://gist.github.com/StephenBlackWasAlreadyTaken/adb0525344bedade1e25
+ */
+
 public class DexcomAPIV0: RestClient {
     
     var username: String
@@ -110,23 +114,6 @@ public class DexcomAPIV0: RestClient {
         
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         return token
-    }
- 
-    
-    public func synchronousData(relativeURL: String, completionBlock:@escaping ((Data) -> Void), errorBlock:(@escaping (RestClientError) -> Void)){
-            
-        let semaphore = DispatchSemaphore(value: 0)
-
-        self.getData(relativeURL: relativeURL, completionBlock: { (data) in
-            completionBlock(data)
-            semaphore.signal()
-        }) { (error) in
-            errorBlock(error)
-            semaphore.signal()
-        }
-
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        
     }
     
     static func headers() -> [String: String] {

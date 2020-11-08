@@ -11,6 +11,10 @@ import FoundationNetworking
 #endif
 import swift_utilities
 
+/*
+ API Docs: https://developer.dexcom.com/overview
+ */
+
 public class DexcomAPIV2: RestClient {
     
     let tokenPath = "/Users/bill/dev/personal/dexcom/token.json"
@@ -51,19 +55,23 @@ public class DexcomAPIV2: RestClient {
         /*
          * TODO: Use now date here.
          */
-        let result = synchronousData(relativeURL: "egvs?startDate=2020-11-03T00:00:00&endDate=2020-12-03T15:45:00") { (json) in
+        let result = synchronousData(relativeURL: "egvs?startDate=2020-11-08T00:00:00&endDate=2020-12-08T15:45:00") { (json) in
             let decoder = self.jsonDecoder()
             do {
                 let result = try decoder.decode(EGVSJSONResult.self, from: json)
-                let sortedEGVS = result.egvs.sorted(by: {$0.displayTime < $1.displayTime})
+                let egvs = result.egvs.map { (egvJSON) -> EGV in
+                    return egvJSON.toEGV()
+                }
+                
+                let sortedEGVS = egvs.sorted(by: {$0.displayTime < $1.displayTime})
                 for egvs in sortedEGVS {
                     print("\(egvs.value): \(egvs.displayTime)")
                 }
                 
-                let lastReadings = sortedEGVS.suffix(12)
+                let lastReadings = sortedEGVS.suffix(1000)
                 
-                let message = lastReadings.reduce("") { (partialMessage, egvs) -> String in
-                    return partialMessage.appending("\(egvs.displayTime): \(egvs.value)\n")
+                let message = lastReadings.reduce("") { (partialMessage, egv) -> String in
+                    return partialMessage.appending("\(egv.debugDescription)\n")
                 }
                 
                 print(message)

@@ -47,12 +47,13 @@ public struct SugarMonitor {
         } else if egv.value >= 250 {
             //Post error to Slack
             isError = true
-            if egv.trend < 4 || egv.value > 500 {
+            let trendRate = egv.trendRate ?? 0.0
+            if trendRate < 4 || egv.value > 500 {
                 includeMentions = true
             }
         }
         
-        var message = "\(egv.value) (\(egv.presentableTrend())), "
+        var message = "\(egv.simpleDescription()), "
         
         message += egv.displayDateDescription()
         
