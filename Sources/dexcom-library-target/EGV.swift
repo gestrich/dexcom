@@ -7,24 +7,24 @@
 
 import Foundation
 
-struct EGV: Codable {
-    let value: Int
-    let systemTime: Date
-    let displayTime: Date
-    let realtimeValue: Int?
-    let smoothedValue: Int?
-    let trendRate: Float?
-    let trendDescription: String
+public struct EGV: Codable {
+    public let value: Int
+    public let systemTime: Date
+    public let displayTime: Date
+    public let realtimeValue: Int?
+    public let smoothedValue: Int?
+    public let trendRate: Float?
+    public let trendDescription: String
     
-    var debugDescription: String {
+    public var debugDescription: String {
         return "\(displayTime): \(value), (\(trendDescription) \(trendRate ?? 0.0))"
     }
     
-    func simpleDescription() ->  String {
+    public func simpleDescription() ->  String {
         return "\(value) (\(trendDescription) \(trendRate ?? 0.0))"
     }
     
-    func displayDateDescription() -> String {
+    public func displayDateDescription() -> String {
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatterPrint.dateFormat = "h:mm a"
