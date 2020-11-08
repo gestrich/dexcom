@@ -17,17 +17,18 @@ func localCredentials() -> DexcomCredentials? {
 }
 
 
-let realTime = true
+let realTime = false
 
 guard let credentials = localCredentials() else {
     fatalError()
 }
 
 if realTime {
-    let dexcomRealTime = DexcomRealTimeAPI(baseURL: "https://share2.dexcom.com/ShareWebServices/Services", username: credentials.username, password: credentials.password, slackURL: credentials.slackURL)
-    dexcomRealTime.checkSugar()
+    let sugarMonitor = SugarMonitor(username: credentials.username, password: credentials.password, slackURL: credentials.slackURL)
+    sugarMonitor.checkSugar()
+
 } else {
-    let dexcom = DexcomAPI.init(baseURL: "https://api.dexcom.com/v2/users/self/", slackURL: credentials.slackURL)
+    let dexcom = DexcomAPIV2.init(baseURL: "https://api.dexcom.com/v2/users/self/")
     print(dexcom.authorizationURL())
     dexcom.getEGVS()
 }

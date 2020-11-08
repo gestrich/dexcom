@@ -11,7 +11,7 @@ import FoundationNetworking
 #endif
 import swift_utilities
 
-public class DexcomAPI: RestClient {
+public class DexcomAPIV2: RestClient {
     
     let tokenPath = "/Users/bill/dev/personal/dexcom/token.json"
     let clientID = "XB9WKlpkNZZW8Z4pXSJVOn9fdqLrzcID"
@@ -19,10 +19,8 @@ public class DexcomAPI: RestClient {
     let code = "3ef6490fa1ae292921936a4a398165ed"
     let redirectURI = "http://localhost:8080/authorization-code/callback"
     let url = "https://api.dexcom.com/v2/oauth2/token"
-    let slackURL: URL
     
-    public init(baseURL: String, slackURL: URL) {
-        self.slackURL = slackURL
+    override public init(baseURL: String) {
         super.init(baseURL: baseURL)
         guard let token = self.refreshToken() else {
             fatalError()
@@ -56,7 +54,7 @@ public class DexcomAPI: RestClient {
         let result = synchronousData(relativeURL: "egvs?startDate=2020-11-03T00:00:00&endDate=2020-12-03T15:45:00") { (json) in
             let decoder = self.jsonDecoder()
             do {
-                let result = try decoder.decode(EGVSResult.self, from: json)
+                let result = try decoder.decode(EGVSJSONResult.self, from: json)
                 let sortedEGVS = result.egvs.sorted(by: {$0.displayTime < $1.displayTime})
                 for egvs in sortedEGVS {
                     print("\(egvs.value): \(egvs.displayTime)")
@@ -68,7 +66,7 @@ public class DexcomAPI: RestClient {
                     return partialMessage.appending("\(egvs.displayTime): \(egvs.value)\n")
                 }
                 
-                self.postToSlackSync(message)
+                print(message)
 
             } catch (let deserializationErorr){
                 //errorBlock(.deserialization(error))
@@ -221,19 +219,5 @@ public class DexcomAPI: RestClient {
             fatalError("No data at \(tokenPath)!")
         }
     }
-    
-    func postToSlackSync(_ message: String) {
-        
-        let semaphore = DispatchSemaphore(value: 0)
-        Slack(url: slackURL).post(message: message) {
-            semaphore.signal()
-        } errorBlock: {
-            semaphore.signal()
-        }
-
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-        
-    }
-
     
 }
