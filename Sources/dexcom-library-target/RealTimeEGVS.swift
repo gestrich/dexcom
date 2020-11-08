@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RealTimeEGVS: Codable {
+public struct RealTimeEGVS: Codable {
     
     /*
      "DT": "/Date(1604424945000+0000)/",
@@ -16,21 +16,21 @@ struct RealTimeEGVS: Codable {
      "Value": 296,
      "WT": "/Date(1604442945000)/"
      */
-    let DT: String
-    let ST: String
-    let Trend: Int
-    let Value: Int
-    let WT: String
+    public let DT: String
+    public let ST: String
+    public let Trend: Int
+    public let Value: Int
+    public let WT: String
     
-    func dateTime() -> Date? {
+    public func dateTime() -> Date? {
         return dateStringToDate(self.DT)
     }
     
-    func systemTime() -> Date? {
+    public func systemTime() -> Date? {
         return dateStringToDate(self.ST)
     }
     
-    func presentableTrend() -> String {
+    public func presentableTrend() -> String {
         if Trend < 4 {
             return "Rising"
         } else if Trend > 4 {
