@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EGV: Codable {
+public struct EGV {
     public let value: Int
     public let systemTime: Date
     public let displayTime: Date
